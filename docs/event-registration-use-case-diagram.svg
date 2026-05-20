@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Event Registration System Use Case Diagram</title>
+  <desc id="desc">Use case diagram showing visitor, admin reviewer, and event registration system interactions.</desc>
+  <defs>
+    <style>
+      .label { font-family: "Segoe UI", Arial, sans-serif; fill: #161616; }
+      .actor { stroke: #1f2937; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+      .boundary { fill: #f8fafc; stroke: #334155; stroke-width: 3; rx: 12; }
+      .public-case { fill: #ffffff; stroke: #2563eb; stroke-width: 2.5; }
+      .admin-case { fill: #ffffff; stroke: #0f766e; stroke-width: 2.5; }
+      .internal-case { fill: #ffffff; stroke: #7c3aed; stroke-width: 2.5; }
+      .line { stroke: #475569; stroke-width: 2.1; fill: none; }
+      .include { stroke: #64748b; stroke-width: 1.9; fill: none; stroke-dasharray: 8 7; marker-end: url(#arrow); }
+      .note { fill: #fff7ed; stroke: #f97316; stroke-width: 2; rx: 6; }
+      .small { font-size: 18px; }
+      .medium { font-size: 21px; font-weight: 600; }
+      .title { font-size: 30px; font-weight: 700; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <text x="600" y="44" text-anchor="middle" class="label title">Event Registration System - Use Case Diagram</text>
+
+  <!-- System boundary -->
+  <rect x="245" y="86" width="710" height="690" class="boundary" />
+  <text x="600" y="120" text-anchor="middle" class="label medium">Event Registration System</text>
+
+  <!-- Visitor actor -->
+  <circle cx="95" cy="245" r="28" class="actor" />
+  <path d="M95 273 L95 360 M48 307 L142 307 M95 360 L58 430 M95 360 L132 430" class="actor" />
+  <text x="95" y="475" text-anchor="middle" class="label medium">Visitor / Applicant</text>
+
+  <!-- Admin actor -->
+  <circle cx="1105" cy="250" r="28" class="actor" />
+  <path d="M1105 278 L1105 365 M1058 312 L1152 312 M1105 365 L1068 435 M1105 365 L1142 435" class="actor" />
+  <text x="1105" y="480" text-anchor="middle" class="label medium">Admin Reviewer</text>
+
+  <!-- Public use cases -->
+  <ellipse cx="420" cy="190" rx="140" ry="44" class="public-case" />
+  <text x="420" y="184" text-anchor="middle" class="label small">View Event</text>
+  <text x="420" y="208" text-anchor="middle" class="label small">Information</text>
+
+  <ellipse cx="420" cy="305" rx="150" ry="46" class="public-case" />
+  <text x="420" y="298" text-anchor="middle" class="label small">Submit Registration</text>
+  <text x="420" y="323" text-anchor="middle" class="label small">Request</text>
+
+  <ellipse cx="420" cy="420" rx="148" ry="44" class="public-case" />
+  <text x="420" y="414" text-anchor="middle" class="label small">Receive Request</text>
+  <text x="420" y="438" text-anchor="middle" class="label small">Number</text>
+
+  <!-- Included/internal use cases -->
+  <ellipse cx="420" cy="555" rx="148" ry="44" class="internal-case" />
+  <text x="420" y="549" text-anchor="middle" class="label small">Validate And</text>
+  <text x="420" y="573" text-anchor="middle" class="label small">Normalize Data</text>
+
+  <ellipse cx="420" cy="665" rx="148" ry="44" class="internal-case" />
+  <text x="420" y="659" text-anchor="middle" class="label small">Prevent Duplicate</text>
+  <text x="420" y="683" text-anchor="middle" class="label small">Registration</text>
+
+  <!-- Admin use cases -->
+  <ellipse cx="770" cy="190" rx="135" ry="42" class="admin-case" />
+  <text x="770" y="197" text-anchor="middle" class="label small">Log In</text>
+
+  <ellipse cx="770" cy="300" rx="152" ry="44" class="admin-case" />
+  <text x="770" y="294" text-anchor="middle" class="label small">Search, Filter,</text>
+  <text x="770" y="318" text-anchor="middle" class="label small">And Sort Requests</text>
+
+  <ellipse cx="770" cy="410" rx="145" ry="44" class="admin-case" />
+  <text x="770" y="404" text-anchor="middle" class="label small">Review Request</text>
+  <text x="770" y="428" text-anchor="middle" class="label small">Details</text>
+
+  <ellipse cx="770" cy="520" rx="152" ry="44" class="admin-case" />
+  <text x="770" y="514" text-anchor="middle" class="label small">Change State And</text>
+  <text x="770" y="538" text-anchor="middle" class="label small">Add Notes</text>
+
+  <ellipse cx="770" cy="630" rx="150" ry="44" class="admin-case" />
+  <text x="770" y="624" text-anchor="middle" class="label small">Export Data And</text>
+  <text x="770" y="648" text-anchor="middle" class="label small">View Statistics</text>
+
+  <ellipse cx="770" cy="720" rx="145" ry="34" class="admin-case" />
+  <text x="770" y="727" text-anchor="middle" class="label small">Manage Request States</text>
+
+  <!-- Actor associations: visitor -->
+  <path d="M142 245 C190 220 230 205 284 194" class="line" />
+  <path d="M142 307 C185 307 225 306 270 305" class="line" />
+  <path d="M142 390 C185 405 225 415 273 420" class="line" />
+
+  <!-- Actor associations: admin, routed from right edge without crossing labels -->
+  <path d="M1058 250 C1014 224 970 205 904 194" class="line" />
+  <path d="M1058 300 C1018 300 980 300 922 300" class="line" />
+  <path d="M1058 348 C1016 370 970 392 914 407" class="line" />
+  <path d="M1058 390 C1012 434 968 480 918 515" class="line" />
+  <path d="M1058 430 C1012 500 965 575 914 624" class="line" />
+  <path d="M1058 455 C1015 565 966 680 912 720" class="line" />
+
+  <!-- Include relationships below the submit use case -->
+  <path d="M340 342 C290 405 292 485 350 530" class="include" />
+  <text x="292" y="470" class="label small">&lt;&lt;include&gt;&gt;</text>
+  <path d="M420 599 L420 621" class="include" />
+  <text x="445" y="615" class="label small">&lt;&lt;include&gt;&gt;</text>
+
+  <!-- Audit note outside the system boundary to avoid caption collision -->
+  <rect x="250" y="790" width="700" height="46" class="note" />
+  <text x="600" y="819" text-anchor="middle" class="label small">All accepted registrations and admin actions create audit log entries.</text>
+</svg>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1250" height="900" viewBox="0 0 1250 900" role="img" aria-labelledby="title desc">
+  <title id="title">Event Registration System Database Schema</title>
+  <desc id="desc">Entity relationship diagram for the event registration database schema with cardinality labels.</desc>
+  <defs>
+    <style>
+      .label { font-family: "Segoe UI", Arial, sans-serif; fill: #111827; }
+      .title { font-size: 30px; font-weight: 700; }
+      .entity-title { font-size: 20px; font-weight: 700; fill: #ffffff; }
+      .field { font-size: 16px; }
+      .card { font-size: 17px; font-weight: 700; fill: #7c2d12; }
+      .box { fill: #ffffff; stroke: #334155; stroke-width: 2.2; rx: 8; }
+      .header { fill: #1f4f82; }
+      .relation { stroke: #475569; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .note { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.8; rx: 8; }
+    </style>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L10,3 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <text x="625" y="42" text-anchor="middle" class="label title">Event Registration System - Database Schema</text>
+
+  <!-- request_states -->
+  <rect x="55" y="95" width="285" height="255" class="box" />
+  <rect x="55" y="95" width="285" height="42" class="header" />
+  <text x="198" y="123" text-anchor="middle" class="label entity-title">request_states</text>
+  <text x="75" y="163" class="label field">id uuid PK</text>
+  <text x="75" y="187" class="label field">name text</text>
+  <text x="75" y="211" class="label field">slug text UNIQUE</text>
+  <text x="75" y="235" class="label field">color text</text>
+  <text x="75" y="259" class="label field">sort_order integer</text>
+  <text x="75" y="283" class="label field">is_system boolean</text>
+  <text x="75" y="307" class="label field">created_at timestamptz</text>
+  <text x="75" y="331" class="label field">updated_at timestamptz</text>
+
+  <!-- registration_requests -->
+  <rect x="430" y="82" width="430" height="285" class="box" />
+  <rect x="430" y="82" width="430" height="42" class="header" />
+  <text x="645" y="110" text-anchor="middle" class="label entity-title">registration_requests</text>
+  <text x="450" y="150" class="label field">id uuid PK</text>
+  <text x="450" y="174" class="label field">request_number text UNIQUE</text>
+  <text x="450" y="198" class="label field">full_name text</text>
+  <text x="450" y="222" class="label field">age integer</text>
+  <text x="450" y="246" class="label field">major text, city text</text>
+  <text x="450" y="270" class="label field">phone text, normalized_phone text UNIQUE</text>
+  <text x="450" y="294" class="label field">email text, normalized_email text UNIQUE</text>
+  <text x="450" y="318" class="label field">state_id uuid FK, archived_at timestamptz</text>
+  <text x="450" y="342" class="label field">created_at, updated_at timestamptz</text>
+
+  <!-- admin_users -->
+  <rect x="940" y="95" width="270" height="225" class="box" />
+  <rect x="940" y="95" width="270" height="42" class="header" />
+  <text x="1075" y="123" text-anchor="middle" class="label entity-title">admin_users</text>
+  <text x="960" y="163" class="label field">id uuid PK</text>
+  <text x="960" y="187" class="label field">email text UNIQUE</text>
+  <text x="960" y="211" class="label field">password_hash text</text>
+  <text x="960" y="235" class="label field">role text</text>
+  <text x="960" y="259" class="label field">is_active boolean</text>
+  <text x="960" y="283" class="label field">created_at timestamptz</text>
+  <text x="960" y="307" class="label field">updated_at timestamptz</text>
+
+  <!-- request_notes -->
+  <rect x="110" y="505" width="320" height="185" class="box" />
+  <rect x="110" y="505" width="320" height="42" class="header" />
+  <text x="270" y="533" text-anchor="middle" class="label entity-title">request_notes</text>
+  <text x="130" y="573" class="label field">id uuid PK</text>
+  <text x="130" y="597" class="label field">request_id uuid FK</text>
+  <text x="130" y="621" class="label field">admin_id uuid FK</text>
+  <text x="130" y="645" class="label field">body text</text>
+  <text x="130" y="669" class="label field">created_at timestamptz</text>
+
+  <!-- action logs -->
+  <rect x="505" y="490" width="370" height="245" class="box" />
+  <rect x="505" y="490" width="370" height="42" class="header" />
+  <text x="690" y="518" text-anchor="middle" class="label entity-title">request_action_logs</text>
+  <text x="525" y="558" class="label field">id uuid PK</text>
+  <text x="525" y="582" class="label field">request_id uuid FK nullable</text>
+  <text x="525" y="606" class="label field">actor_admin_id uuid FK nullable</text>
+  <text x="525" y="630" class="label field">actor_type text</text>
+  <text x="525" y="654" class="label field">action text</text>
+  <text x="525" y="678" class="label field">metadata jsonb</text>
+  <text x="525" y="702" class="label field">created_at timestamptz</text>
+
+  <!-- app settings -->
+  <rect x="955" y="535" width="220" height="145" class="box" />
+  <rect x="955" y="535" width="220" height="42" class="header" />
+  <text x="1065" y="563" text-anchor="middle" class="label entity-title">app_settings</text>
+  <text x="975" y="603" class="label field">key text PK</text>
+  <text x="975" y="627" class="label field">value jsonb</text>
+  <text x="975" y="651" class="label field">updated_at timestamptz</text>
+
+  <!-- relationships -->
+  <path d="M340 210 L430 210" class="relation" />
+  <text x="353" y="198" class="label card">1</text>
+  <text x="402" y="198" class="label card">*</text>
+
+  <path d="M430 550 C505 485 555 420 590 367" class="relation" />
+  <text x="408" y="548" class="label card">*</text>
+  <text x="596" y="388" class="label card">1</text>
+
+  <path d="M430 635 C610 770 930 770 1215 770 L1215 210 L1210 210" class="relation" />
+  <text x="407" y="640" class="label card">*</text>
+  <text x="1216" y="200" class="label card">1</text>
+
+  <path d="M650 490 L650 367" class="relation" />
+  <text x="662" y="476" class="label card">*</text>
+  <text x="662" y="390" class="label card">0..1</text>
+
+  <path d="M875 560 C960 500 1030 370 1075 320" class="relation" />
+  <text x="884" y="552" class="label card">*</text>
+  <text x="1016" y="326" class="label card">0..1</text>
+
+  <rect x="85" y="795" width="1080" height="70" class="note" />
+  <text x="625" y="824" text-anchor="middle" class="label field">Cardinality: 1 means one parent record; * means many child records; 0..1 means the relationship is optional.</text>
+  <text x="625" y="850" text-anchor="middle" class="label field">normalized_phone and normalized_email remain UNIQUE because duplicate registrations are blocked permanently.</text>
+</svg>

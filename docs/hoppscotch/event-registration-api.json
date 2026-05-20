@@ -1,0 +1,575 @@
+{
+  "v": 5,
+  "name": "Event Registration API",
+  "folders": [
+    {
+      "name": "Auth",
+      "folders": [],
+      "requests": [
+        {
+          "v": "3",
+          "id": "event-auth-login",
+          "name": "Login",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/api/auth/login",
+          "params": [],
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "none",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"secure-password\"\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-auth-me",
+          "name": "Me",
+          "method": "GET",
+          "endpoint": "<<baseUrl>>/api/auth/me",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          }
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": []
+    },
+    {
+      "name": "Public Registration",
+      "folders": [],
+      "requests": [
+        {
+          "v": "3",
+          "id": "event-registration-valid",
+          "name": "Valid Registration",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/api/registrations",
+          "params": [],
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "none",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"fullName\": \"Ali Salem Mohamed\",\n  \"age\": 24,\n  \"major\": \"Architecture Engineering\",\n  \"phone\": \"+218912345678\",\n  \"email\": \"ali@example.com\",\n  \"city\": \"Tripoli\"\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-registration-invalid",
+          "name": "Invalid Registration",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/api/registrations",
+          "params": [],
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "none",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"fullName\": \"Ali\",\n  \"age\": 15,\n  \"major\": \"\",\n  \"phone\": \"123\",\n  \"email\": \"wrong-email\",\n  \"city\": \"\"\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-registration-duplicate",
+          "name": "Duplicate Registration Sample",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/api/registrations",
+          "params": [],
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "none",
+            "authActive": true
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"fullName\": \"Ali Salem Mohamed\",\n  \"age\": 24,\n  \"major\": \"Architecture Engineering\",\n  \"phone\": \"+218912345678\",\n  \"email\": \"ali@example.com\",\n  \"city\": \"Tripoli\"\n}"
+          }
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": []
+    },
+    {
+      "name": "Admin Requests",
+      "folders": [],
+      "requests": [
+        {
+          "v": "3",
+          "id": "event-admin-requests-list",
+          "name": "List Requests",
+          "method": "GET",
+          "endpoint": "<<baseUrl>>/api/admin/requests?page=1&pageSize=20&archived=false&sortBy=createdAt&sortDir=desc",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-requests-detail",
+          "name": "Request Detail",
+          "method": "GET",
+          "endpoint": "<<baseUrl>>/api/admin/requests/<<requestId>>",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-requests-change-state",
+          "name": "Change State",
+          "method": "PATCH",
+          "endpoint": "<<baseUrl>>/api/admin/requests/<<requestId>>/state",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"stateId\": \"<<stateId>>\"\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-requests-add-note",
+          "name": "Add Note",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/api/admin/requests/<<requestId>>/notes",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"body\": \"Called applicant and confirmed availability.\"\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-requests-archive",
+          "name": "Archive",
+          "method": "PATCH",
+          "endpoint": "<<baseUrl>>/api/admin/requests/<<requestId>>/archive",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"archived\": true\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-requests-unarchive",
+          "name": "Unarchive",
+          "method": "PATCH",
+          "endpoint": "<<baseUrl>>/api/admin/requests/<<requestId>>/archive",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"archived\": false\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-requests-export",
+          "name": "Export CSV",
+          "method": "GET",
+          "endpoint": "<<baseUrl>>/api/admin/requests/export.csv?archived=false",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          }
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": []
+    },
+    {
+      "name": "Admin States",
+      "folders": [],
+      "requests": [
+        {
+          "v": "3",
+          "id": "event-admin-states-list",
+          "name": "List States",
+          "method": "GET",
+          "endpoint": "<<baseUrl>>/api/admin/states",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-states-create",
+          "name": "Create State",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/api/admin/states",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"Waiting List\",\n  \"slug\": \"waiting_list\",\n  \"color\": \"#7c3aed\",\n  \"sortOrder\": 50\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-states-update",
+          "name": "Update State",
+          "method": "PATCH",
+          "endpoint": "<<baseUrl>>/api/admin/states/<<stateId>>",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"Waiting List Updated\",\n  \"color\": \"#9333ea\",\n  \"sortOrder\": 55\n}"
+          }
+        },
+        {
+          "v": "3",
+          "id": "event-admin-states-delete-transfer",
+          "name": "Delete State With Transfer",
+          "method": "DELETE",
+          "endpoint": "<<baseUrl>>/api/admin/states/<<stateId>>",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"transferToStateId\": \"<<stateId>>\"\n}"
+          }
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": []
+    },
+    {
+      "name": "Stats",
+      "folders": [],
+      "requests": [
+        {
+          "v": "3",
+          "id": "event-admin-stats-dashboard",
+          "name": "Dashboard Stats",
+          "method": "GET",
+          "endpoint": "<<baseUrl>>/api/admin/stats",
+          "params": [],
+          "headers": [
+            {
+              "key": "Authorization",
+              "value": "Bearer <<accessToken>>",
+              "active": true
+            }
+          ],
+          "requestVariables": [],
+          "auth": {
+            "authType": "bearer",
+            "authActive": true,
+            "token": "<<accessToken>>"
+          },
+          "preRequestScript": "",
+          "testScript": "",
+          "body": {
+            "contentType": null,
+            "body": null
+          }
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": []
+    }
+  ],
+  "requests": [],
+  "auth": {
+    "authType": "inherit",
+    "authActive": true
+  },
+  "headers": [],
+  "variables": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "requestId",
+      "value": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+      "key": "stateId",
+      "value": "00000000-0000-0000-0000-000000000000"
+    }
+  ]
+}
