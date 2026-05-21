@@ -1,10 +1,5 @@
 import { Request, Response } from "express";
-import {
-  addNoteSchema,
-  archiveSchema,
-  changeStateSchema,
-  listRequestsQuerySchema
-} from "../validators/requestValidator";
+import { listRequestsQuerySchema } from "../validators/requestValidator";
 import * as requestService from "../services/requestService";
 import { getRouteParam } from "../utils/requestParams";
 
@@ -18,17 +13,17 @@ export async function detail(req: Request, res: Response): Promise<void> {
 }
 
 export async function changeState(req: Request, res: Response): Promise<void> {
-  const input = changeStateSchema.parse(req.body);
+  const input = req.body;
   res.json(await requestService.updateRequestState(getRouteParam(req, "id"), req.admin!.id, input));
 }
 
 export async function addNote(req: Request, res: Response): Promise<void> {
-  const input = addNoteSchema.parse(req.body);
+  const input = req.body;
   res.status(201).json(await requestService.createNote(getRouteParam(req, "id"), req.admin!.id, input));
 }
 
 export async function archive(req: Request, res: Response): Promise<void> {
-  const input = archiveSchema.parse(req.body);
+  const input = req.body;
   res.json(await requestService.archiveRequest(getRouteParam(req, "id"), req.admin!.id, input));
 }
 
