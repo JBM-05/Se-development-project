@@ -38,8 +38,6 @@
   <text x="65" y="220" class="label member">+ passwordHash: text</text>
   <text x="65" y="243" class="label member">+ role: text</text>
   <text x="65" y="266" class="label member">+ isActive: boolean</text>
-  <line x1="45" y1="286" x2="360" y2="286" class="divider" />
-  <text x="65" y="313" class="label member">+ canLogin(): boolean</text>
 
   <rect x="455" y="75" width="440" height="300" class="box" />
   <rect x="455" y="75" width="440" height="50" class="entity-header" />
@@ -68,8 +66,6 @@
   <text x="1025" y="243" class="label member">+ color: text</text>
   <text x="1025" y="266" class="label member">+ sortOrder: integer</text>
   <text x="1025" y="289" class="label member">+ isSystem: boolean</text>
-  <line x1="1005" y1="304" x2="1305" y2="304" class="divider" />
-  <text x="1025" y="319" class="label member">+ canBeDeleted(): boolean</text>
 
   <rect x="90" y="455" width="310" height="190" class="box" />
   <rect x="90" y="455" width="310" height="50" class="entity-header" />
@@ -121,9 +117,10 @@
   <text x="696" y="440" class="label card">*</text>
   <text x="695" y="397" class="label card">0..1</text>
 
-  <path d="M860 560 C935 510 975 390 1040 330" class="relation" />
-  <text x="866" y="550" class="label card">*</text>
-  <text x="1008" y="350" class="label card">0..1</text>
+  <path d="M520 555 C440 500 360 420 285 330" class="relation" />
+  <text x="500" y="548" class="label card">*</text>
+  <text x="300" y="350" class="label card">0..1</text>
+  <text x="365" y="442" class="label small">logged admin actor</text>
 
   <!-- Service and repository classes -->
   <rect x="55" y="735" width="330" height="135" class="box" />
@@ -131,8 +128,8 @@
   <text x="220" y="764" text-anchor="middle" class="label class-title">RegistrationService</text>
   <line x1="55" y1="780" x2="385" y2="780" class="divider" />
   <text x="75" y="807" class="label member">+ createRegistration(input)</text>
-  <text x="75" y="830" class="label member">- validateAge()</text>
-  <text x="75" y="853" class="label member">- normalizeContactData()</text>
+  <text x="75" y="830" class="label member">uses settings, state, request repos</text>
+  <text x="75" y="853" class="label member">uses normalization utilities</text>
 
   <rect x="440" y="735" width="330" height="135" class="box" />
   <rect x="440" y="735" width="330" height="45" class="service-header" />
@@ -147,16 +144,18 @@
   <text x="945" y="764" text-anchor="middle" class="label class-title">AuthService</text>
   <line x1="820" y1="780" x2="1070" y2="780" class="divider" />
   <text x="840" y="807" class="label member">+ login(input)</text>
-  <text x="840" y="830" class="label member">- verifyPassword()</text>
-  <text x="840" y="853" class="label member">- issueToken()</text>
+  <text x="840" y="830" class="label member">uses bcrypt password check</text>
+  <text x="840" y="853" class="label member">issues JWT access token</text>
 
-  <rect x="1110" y="735" width="205" height="135" class="box" />
+  <rect x="1110" y="735" width="205" height="160" class="box" />
   <rect x="1110" y="735" width="205" height="45" class="repo-header" />
   <text x="1213" y="764" text-anchor="middle" class="label class-title">Repositories</text>
   <line x1="1110" y1="780" x2="1315" y2="780" class="divider" />
-  <text x="1130" y="807" class="label member">+ AdminRepository</text>
-  <text x="1130" y="830" class="label member">+ RequestRepository</text>
-  <text x="1130" y="853" class="label member">+ StateRepository</text>
+  <text x="1130" y="800" class="label member">+ AdminRepository</text>
+  <text x="1130" y="821" class="label member">+ RequestRepository</text>
+  <text x="1130" y="842" class="label member">+ StateRepository</text>
+  <text x="1130" y="863" class="label member">+ SettingsRepository</text>
+  <text x="1130" y="884" class="label member">+ ActionLogRepository</text>
 
   <path d="M300 735 C395 660 500 615 615 670" class="depends" />
   <text x="350" y="684" class="label small">creates</text>
@@ -168,6 +167,6 @@
   <path d="M385 805 L440 805" class="depends" />
   <path d="M770 805 L820 805" class="depends" />
 
-  <rect x="95" y="900" width="1160" height="35" class="note" />
-  <text x="675" y="923" text-anchor="middle" class="label small">The implementation uses TypeScript row types, repositories, and services instead of concrete ORM entity classes; this diagram expresses the equivalent domain class model.</text>
+  <rect x="95" y="910" width="1160" height="35" class="note" />
+  <text x="675" y="933" text-anchor="middle" class="label small">The implementation uses TypeScript row types, repositories, and services instead of concrete ORM entity classes; this diagram expresses the equivalent domain class model.</text>
 </svg>
