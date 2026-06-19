@@ -1,0 +1,121 @@
+{
+  "app": {
+    "name": "Event Registration",
+    "admin": "Admin Console",
+    "unknownError": "Something went wrong. Please try again."
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "requests": "Requests",
+    "states": "States",
+    "settings": "Settings"
+  },
+  "actions": {
+    "add": "Add",
+    "archive": "Archive",
+    "back": "Back",
+    "cancel": "Cancel",
+    "clear": "Clear",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "export": "Export CSV",
+    "filter": "Filter",
+    "login": "Log in",
+    "logout": "Log out",
+    "register": "Submit registration",
+    "retry": "Retry",
+    "save": "Save",
+    "search": "Search",
+    "unarchive": "Unarchive",
+    "update": "Update",
+    "view": "View"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "title": "Admin login",
+    "subtitle": "Review registrations and manage request states.",
+    "invalid": "Invalid email or password."
+  },
+  "registration": {
+    "title": "Register for the event",
+    "subtitle": "Submit your details for review. The team will use your contact information only for this event workflow.",
+    "fullName": "Full name",
+    "age": "Age",
+    "major": "Major",
+    "phone": "Phone",
+    "email": "Email",
+    "city": "City",
+    "successTitle": "Registration submitted",
+    "successBody": "Your request is under review.",
+    "requestNumber": "Request number",
+    "duplicate": "A registration already exists for {{conflicts}}.",
+    "phoneConflict": "phone",
+    "emailConflict": "email"
+  },
+  "requests": {
+    "title": "Registration requests",
+    "detailTitle": "Request detail",
+    "requestNumber": "Request number",
+    "fullName": "Full name",
+    "age": "Age",
+    "major": "Major",
+    "city": "City",
+    "phone": "Phone",
+    "email": "Email",
+    "state": "State",
+    "createdAt": "Created",
+    "archived": "Archived",
+    "active": "Active",
+    "all": "All",
+    "noRows": "No requests found",
+    "noRowsBody": "Try clearing filters or changing the search terms.",
+    "searchPlaceholder": "Name, phone, email, or request number",
+    "addNote": "Add note",
+    "notePlaceholder": "Write an internal note",
+    "auditLog": "Audit history",
+    "notes": "Internal notes",
+    "contact": "Contact",
+    "applicant": "Applicant",
+    "changeState": "Change state",
+    "confirmArchive": "Archive this request? It will leave the default active list."
+  },
+  "states": {
+    "title": "Request states",
+    "name": "Name",
+    "slug": "Slug",
+    "color": "Color",
+    "sortOrder": "Sort order",
+    "system": "System",
+    "transferTo": "Transfer linked requests to",
+    "locked": "Locked"
+  },
+  "stats": {
+    "title": "Dashboard",
+    "totalRequests": "Active requests",
+    "approved": "Approved",
+    "underReview": "Under review",
+    "noReply": "No reply",
+    "byState": "By state",
+    "byMajor": "By major",
+    "byCity": "By city"
+  },
+  "validation": {
+    "required": "This field is required.",
+    "fullName": "Enter at least three words.",
+    "age": "Age must be between 18 and 100.",
+    "email": "Enter a valid email address.",
+    "phone": "Enter a valid phone number.",
+    "slug": "Use lowercase snake_case.",
+    "note": "Note must be 1 to 4000 characters."
+  },
+  "status": {
+    "registration_created": "Registration created",
+    "request_state_changed": "State changed",
+    "request_note_created": "Note added",
+    "request_archived": "Request archived",
+    "request_unarchived": "Request unarchived",
+    "requests_exported": "Requests exported"
+  }
+}

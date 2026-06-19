@@ -1,172 +1,214 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1350" height="950" viewBox="0 0 1350 950" role="img" aria-labelledby="title desc">
-  <title id="title">Event Registration System Class Diagram</title>
-  <desc id="desc">UML class diagram showing the main event registration domain classes, service classes, repository classes, and their relationships.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1750" height="1210" viewBox="0 0 1750 1210" role="img" aria-labelledby="title desc">
+  <title id="title">Event Registration System - Class Diagram</title>
+  <desc id="desc">UML-style class diagram matching the supplied Mermaid classDiagram, with every class split into attributes and methods compartments.</desc>
   <defs>
     <style>
-      .label { font-family: "Segoe UI", Arial, sans-serif; fill: #111827; }
-      .title { font-size: 30px; font-weight: 700; }
-      .class-title { font-size: 19px; font-weight: 700; fill: #ffffff; }
-      .stereo { font-size: 14px; fill: #e0f2fe; font-weight: 600; }
-      .member { font-size: 15px; }
-      .small { font-size: 14px; }
-      .card { font-size: 16px; font-weight: 700; fill: #7c2d12; }
-      .box { fill: #ffffff; stroke: #334155; stroke-width: 2.1; rx: 8; }
-      .entity-header { fill: #1f4f82; }
-      .service-header { fill: #0f766e; }
-      .repo-header { fill: #7c3aed; }
-      .value-header { fill: #9a3412; }
-      .divider { stroke: #cbd5e1; stroke-width: 1.4; }
-      .relation { stroke: #475569; stroke-width: 2.3; fill: none; marker-end: url(#arrow); }
-      .depends { stroke: #64748b; stroke-width: 2; fill: none; stroke-dasharray: 7 7; marker-end: url(#arrow); }
-      .note { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.8; rx: 8; }
+      .text { font-family: "Segoe UI", Arial, sans-serif; fill: #111827; }
+      .title { font-size: 32px; font-weight: 700; }
+      .class-name { fill: #ffffff; font-size: 18px; font-weight: 700; }
+      .stereo { fill: #e0f2fe; font-size: 14px; font-weight: 650; }
+      .member { font-size: 14px; }
+      .compact { font-size: 13px; }
+      .label { font-size: 13px; }
+      .mult { fill: #7c2d12; font-size: 15px; font-weight: 700; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 1.6; rx: 7; }
+      .entity { fill: #1e4f7a; }
+      .service { fill: #0f766e; }
+      .value { fill: #7c2d12; }
+      .repo { fill: #6d28d9; }
+      .divider { stroke: #cbd5e1; stroke-width: 1.2; }
+      .compartment { stroke: #94a3b8; stroke-width: 1.4; }
+      .assoc { stroke: #334155; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+      .dep { stroke: #64748b; stroke-width: 1.8; fill: none; stroke-dasharray: 7 6; marker-end: url(#arrow-soft); }
+      .note { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.4; rx: 7; }
     </style>
-    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L10,3 z" fill="#475569" />
+    <marker id="arrow" markerWidth="11" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155" />
+    </marker>
+    <marker id="arrow-soft" markerWidth="11" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b" />
     </marker>
   </defs>
 
-  <text x="675" y="42" text-anchor="middle" class="label title">Event Registration System - Class Diagram</text>
+  <text x="875" y="42" text-anchor="middle" class="text title">Event Registration System - Class Diagram</text>
 
-  <!-- Entity classes -->
-  <rect x="45" y="95" width="315" height="235" class="box" />
-  <rect x="45" y="95" width="315" height="50" class="entity-header" />
-  <text x="203" y="116" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
-  <text x="203" y="138" text-anchor="middle" class="label class-title">AdminUser</text>
-  <line x1="45" y1="145" x2="360" y2="145" class="divider" />
-  <text x="65" y="174" class="label member">+ id: uuid</text>
-  <text x="65" y="197" class="label member">+ email: text</text>
-  <text x="65" y="220" class="label member">+ passwordHash: text</text>
-  <text x="65" y="243" class="label member">+ role: text</text>
-  <text x="65" y="266" class="label member">+ isActive: boolean</text>
+  <g id="AdminUser">
+    <rect x="40" y="80" width="310" height="300" class="box" />
+    <rect x="40" y="80" width="310" height="52" class="entity" />
+    <text x="195" y="101" text-anchor="middle" class="text stereo">&lt;&lt;entity&gt;&gt;</text>
+    <text x="195" y="125" text-anchor="middle" class="text class-name">AdminUser</text>
+    <line x1="40" y1="132" x2="350" y2="132" class="divider" />
+    <line x1="40" y1="256" x2="350" y2="256" class="compartment" />
+    <text x="60" y="160" class="text member">+uuid id</text>
+    <text x="60" y="181" class="text member">+text email</text>
+    <text x="60" y="202" class="text member">+text passwordHash</text>
+    <text x="60" y="223" class="text member">+text role</text>
+    <text x="60" y="244" class="text member">+boolean isActive</text>
+  </g>
 
-  <rect x="455" y="75" width="440" height="300" class="box" />
-  <rect x="455" y="75" width="440" height="50" class="entity-header" />
-  <text x="675" y="96" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
-  <text x="675" y="118" text-anchor="middle" class="label class-title">RegistrationRequest</text>
-  <line x1="455" y1="125" x2="895" y2="125" class="divider" />
-  <text x="475" y="154" class="label member">+ id: uuid</text>
-  <text x="475" y="177" class="label member">+ requestNumber: text</text>
-  <text x="475" y="200" class="label member">+ fullName: text</text>
-  <text x="475" y="223" class="label member">+ age: integer</text>
-  <text x="475" y="246" class="label member">+ major: text</text>
-  <text x="475" y="269" class="label member">+ phone: text</text>
-  <text x="475" y="292" class="label member">+ normalizedPhone: text</text>
-  <text x="475" y="315" class="label member">+ email: text</text>
-  <text x="475" y="338" class="label member">+ normalizedEmail: text</text>
-  <text x="475" y="361" class="label member">+ city: text</text>
+  <g id="RegistrationService">
+    <rect x="40" y="760" width="330" height="220" class="box" />
+    <rect x="40" y="760" width="330" height="45" class="service" />
+    <text x="205" y="789" text-anchor="middle" class="text class-name">RegistrationService</text>
+    <line x1="40" y1="805" x2="370" y2="805" class="divider" />
+    <line x1="40" y1="893" x2="370" y2="893" class="compartment" />
+    <text x="60" y="930" class="text member">+createRegistration(input)</text>
+    <text x="60" y="953" class="text member">uses settings, state, request repos</text>
+    <text x="60" y="976" class="text member">uses normalization utilities</text>
+  </g>
 
-  <rect x="1005" y="95" width="300" height="235" class="box" />
-  <rect x="1005" y="95" width="300" height="50" class="entity-header" />
-  <text x="1155" y="116" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
-  <text x="1155" y="138" text-anchor="middle" class="label class-title">RequestState</text>
-  <line x1="1005" y1="145" x2="1305" y2="145" class="divider" />
-  <text x="1025" y="174" class="label member">+ id: uuid</text>
-  <text x="1025" y="197" class="label member">+ name: text</text>
-  <text x="1025" y="220" class="label member">+ slug: text</text>
-  <text x="1025" y="243" class="label member">+ color: text</text>
-  <text x="1025" y="266" class="label member">+ sortOrder: integer</text>
-  <text x="1025" y="289" class="label member">+ isSystem: boolean</text>
+  <g id="RegistrationRequest">
+    <rect x="430" y="80" width="380" height="430" class="box" />
+    <rect x="430" y="80" width="380" height="52" class="entity" />
+    <text x="620" y="101" text-anchor="middle" class="text stereo">&lt;&lt;entity&gt;&gt;</text>
+    <text x="620" y="125" text-anchor="middle" class="text class-name">RegistrationRequest</text>
+    <line x1="430" y1="132" x2="810" y2="132" class="divider" />
+    <line x1="430" y1="321" x2="810" y2="321" class="compartment" />
+    <text x="450" y="160" class="text member">+uuid id</text>
+    <text x="450" y="177" class="text member">+text requestNumber</text>
+    <text x="450" y="194" class="text member">+text fullName</text>
+    <text x="450" y="211" class="text member">+integer age</text>
+    <text x="450" y="228" class="text member">+text major</text>
+    <text x="450" y="245" class="text member">+text phone</text>
+    <text x="450" y="262" class="text member">+text normalizedPhone</text>
+    <text x="450" y="279" class="text member">+text email</text>
+    <text x="450" y="296" class="text member">+text normalizedEmail</text>
+    <text x="450" y="313" class="text member">+text city</text>
+  </g>
 
-  <rect x="90" y="455" width="310" height="190" class="box" />
-  <rect x="90" y="455" width="310" height="50" class="entity-header" />
-  <text x="245" y="476" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
-  <text x="245" y="498" text-anchor="middle" class="label class-title">RequestNote</text>
-  <line x1="90" y1="505" x2="400" y2="505" class="divider" />
-  <text x="110" y="534" class="label member">+ id: uuid</text>
-  <text x="110" y="557" class="label member">+ requestId: uuid</text>
-  <text x="110" y="580" class="label member">+ adminId: uuid</text>
-  <text x="110" y="603" class="label member">+ body: text</text>
-  <text x="110" y="626" class="label member">+ createdAt: timestamptz</text>
+  <g id="RequestService">
+    <rect x="430" y="760" width="340" height="220" class="box" />
+    <rect x="430" y="760" width="340" height="45" class="service" />
+    <text x="600" y="789" text-anchor="middle" class="text class-name">RequestService</text>
+    <line x1="430" y1="805" x2="770" y2="805" class="divider" />
+    <line x1="430" y1="893" x2="770" y2="893" class="compartment" />
+    <text x="450" y="930" class="text member">+getRequests(filters)</text>
+    <text x="450" y="953" class="text member">+updateRequestState()</text>
+    <text x="450" y="976" class="text member">+createNote() / archiveRequest()</text>
+  </g>
 
-  <rect x="520" y="455" width="340" height="215" class="box" />
-  <rect x="520" y="455" width="340" height="50" class="entity-header" />
-  <text x="690" y="476" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
-  <text x="690" y="498" text-anchor="middle" class="label class-title">RequestActionLog</text>
-  <line x1="520" y1="505" x2="860" y2="505" class="divider" />
-  <text x="540" y="534" class="label member">+ id: uuid</text>
-  <text x="540" y="557" class="label member">+ requestId: uuid?</text>
-  <text x="540" y="580" class="label member">+ actorAdminId: uuid?</text>
-  <text x="540" y="603" class="label member">+ actorType: system | visitor | admin</text>
-  <text x="540" y="626" class="label member">+ action: text</text>
-  <text x="540" y="649" class="label member">+ metadata: json</text>
+  <g id="RequestNote">
+    <rect x="890" y="80" width="310" height="300" class="box" />
+    <rect x="890" y="80" width="310" height="52" class="entity" />
+    <text x="1045" y="101" text-anchor="middle" class="text stereo">&lt;&lt;entity&gt;&gt;</text>
+    <text x="1045" y="125" text-anchor="middle" class="text class-name">RequestNote</text>
+    <line x1="890" y1="132" x2="1200" y2="132" class="divider" />
+    <line x1="890" y1="256" x2="1200" y2="256" class="compartment" />
+    <text x="910" y="160" class="text member">+uuid id</text>
+    <text x="910" y="181" class="text member">+uuid requestId</text>
+    <text x="910" y="202" class="text member">+uuid adminId</text>
+    <text x="910" y="223" class="text member">+text body</text>
+    <text x="910" y="244" class="text member">+timestamptz createdAt</text>
+  </g>
 
-  <rect x="1000" y="455" width="285" height="155" class="box" />
-  <rect x="1000" y="455" width="285" height="50" class="value-header" />
-  <text x="1143" y="476" text-anchor="middle" class="label stereo">&lt;&lt;value object&gt;&gt;</text>
-  <text x="1143" y="498" text-anchor="middle" class="label class-title">AppSetting</text>
-  <line x1="1000" y1="505" x2="1285" y2="505" class="divider" />
-  <text x="1020" y="534" class="label member">+ key: text</text>
-  <text x="1020" y="557" class="label member">+ value: json</text>
-  <text x="1020" y="580" class="label member">+ updatedAt: timestamptz</text>
+  <g id="RequestActionLog">
+    <rect x="890" y="430" width="355" height="330" class="box" />
+    <rect x="890" y="430" width="355" height="52" class="entity" />
+    <text x="1068" y="451" text-anchor="middle" class="text stereo">&lt;&lt;entity&gt;&gt;</text>
+    <text x="1068" y="475" text-anchor="middle" class="text class-name">RequestActionLog</text>
+    <line x1="890" y1="482" x2="1245" y2="482" class="divider" />
+    <line x1="890" y1="621" x2="1245" y2="621" class="compartment" />
+    <text x="910" y="510" class="text compact">+uuid id</text>
+    <text x="910" y="529" class="text compact">+uuid? requestId</text>
+    <text x="910" y="548" class="text compact">+uuid? actorAdminId</text>
+    <text x="910" y="567" class="text compact">+system|visitor|admin actorType</text>
+    <text x="910" y="586" class="text compact">+text action</text>
+    <text x="910" y="605" class="text compact">+json metadata</text>
+  </g>
 
-  <!-- Domain relationships -->
-  <path d="M895 215 L1005 215" class="relation" />
-  <text x="910" y="203" class="label card">*</text>
-  <text x="980" y="203" class="label card">1</text>
-  <text x="930" y="243" class="label small">current state</text>
+  <g id="AuthService">
+    <rect x="890" y="820" width="315" height="220" class="box" />
+    <rect x="890" y="820" width="315" height="45" class="service" />
+    <text x="1048" y="849" text-anchor="middle" class="text class-name">AuthService</text>
+    <line x1="890" y1="865" x2="1205" y2="865" class="divider" />
+    <line x1="890" y1="953" x2="1205" y2="953" class="compartment" />
+    <text x="910" y="990" class="text member">+login(input)</text>
+    <text x="910" y="1013" class="text member">uses bcrypt password check</text>
+    <text x="910" y="1036" class="text member">issues JWT access token</text>
+  </g>
 
-  <path d="M400 530 C450 450 515 390 575 375" class="relation" />
-  <text x="405" y="522" class="label card">*</text>
-  <text x="570" y="398" class="label card">1</text>
+  <g id="RequestState">
+    <rect x="1330" y="80" width="320" height="320" class="box" />
+    <rect x="1330" y="80" width="320" height="52" class="entity" />
+    <text x="1490" y="101" text-anchor="middle" class="text stereo">&lt;&lt;entity&gt;&gt;</text>
+    <text x="1490" y="125" text-anchor="middle" class="text class-name">RequestState</text>
+    <line x1="1330" y1="132" x2="1650" y2="132" class="divider" />
+    <line x1="1330" y1="266" x2="1650" y2="266" class="compartment" />
+    <text x="1350" y="160" class="text member">+uuid id</text>
+    <text x="1350" y="179" class="text member">+text name</text>
+    <text x="1350" y="198" class="text member">+text slug</text>
+    <text x="1350" y="217" class="text member">+text color</text>
+    <text x="1350" y="236" class="text member">+integer sortOrder</text>
+    <text x="1350" y="255" class="text member">+boolean isSystem</text>
+  </g>
 
-  <path d="M245 455 C215 395 205 360 205 330" class="relation" />
-  <text x="256" y="446" class="label card">*</text>
-  <text x="215" y="354" class="label card">1</text>
+  <g id="AppSetting">
+    <rect x="1330" y="450" width="320" height="240" class="box" />
+    <rect x="1330" y="450" width="320" height="52" class="value" />
+    <text x="1490" y="471" text-anchor="middle" class="text stereo">&lt;&lt;value object&gt;&gt;</text>
+    <text x="1490" y="495" text-anchor="middle" class="text class-name">AppSetting</text>
+    <line x1="1330" y1="502" x2="1650" y2="502" class="divider" />
+    <line x1="1330" y1="596" x2="1650" y2="596" class="compartment" />
+    <text x="1350" y="530" class="text member">+text key</text>
+    <text x="1350" y="552" class="text member">+json value</text>
+    <text x="1350" y="574" class="text member">+timestamptz updatedAt</text>
+  </g>
 
-  <path d="M685 455 L680 375" class="relation" />
-  <text x="696" y="440" class="label card">*</text>
-  <text x="695" y="397" class="label card">0..1</text>
+  <g id="Repositories">
+    <rect x="1330" y="820" width="320" height="300" class="box" />
+    <rect x="1330" y="820" width="320" height="45" class="repo" />
+    <text x="1490" y="849" text-anchor="middle" class="text class-name">Repositories</text>
+    <line x1="1330" y1="865" x2="1650" y2="865" class="divider" />
+    <line x1="1330" y1="993" x2="1650" y2="993" class="compartment" />
+    <text x="1350" y="895" class="text member">+AdminRepository</text>
+    <text x="1350" y="918" class="text member">+RequestRepository</text>
+    <text x="1350" y="941" class="text member">+StateRepository</text>
+    <text x="1350" y="964" class="text member">+SettingsRepository</text>
+    <text x="1350" y="987" class="text member">+ActionLogRepository</text>
+  </g>
 
-  <path d="M520 555 C440 500 360 420 285 330" class="relation" />
-  <text x="500" y="548" class="label card">*</text>
-  <text x="300" y="350" class="label card">0..1</text>
-  <text x="365" y="442" class="label small">logged admin actor</text>
+  <!-- Associations from the supplied Mermaid diagram -->
+  <path d="M810 210 C1000 188 1155 178 1330 205" class="assoc" />
+  <text x="830" y="196" class="text mult">*</text>
+  <text x="1300" y="194" class="text mult">1</text>
+  <text x="1075" y="170" text-anchor="middle" class="text label">current state</text>
 
-  <!-- Service and repository classes -->
-  <rect x="55" y="735" width="330" height="135" class="box" />
-  <rect x="55" y="735" width="330" height="45" class="service-header" />
-  <text x="220" y="764" text-anchor="middle" class="label class-title">RegistrationService</text>
-  <line x1="55" y1="780" x2="385" y2="780" class="divider" />
-  <text x="75" y="807" class="label member">+ createRegistration(input)</text>
-  <text x="75" y="830" class="label member">uses settings, state, request repos</text>
-  <text x="75" y="853" class="label member">uses normalization utilities</text>
+  <path d="M810 188 L890 188" class="assoc" />
+  <text x="825" y="175" class="text mult">1</text>
+  <text x="866" y="175" class="text mult">*</text>
 
-  <rect x="440" y="735" width="330" height="135" class="box" />
-  <rect x="440" y="735" width="330" height="45" class="service-header" />
-  <text x="605" y="764" text-anchor="middle" class="label class-title">RequestService</text>
-  <line x1="440" y1="780" x2="770" y2="780" class="divider" />
-  <text x="460" y="807" class="label member">+ getRequests(filters)</text>
-  <text x="460" y="830" class="label member">+ updateRequestState()</text>
-  <text x="460" y="853" class="label member">+ createNote() / archiveRequest()</text>
+  <path d="M350 188 L890 188" class="assoc" />
+  <text x="370" y="175" class="text mult">1</text>
+  <text x="866" y="175" class="text mult">*</text>
 
-  <rect x="820" y="735" width="250" height="135" class="box" />
-  <rect x="820" y="735" width="250" height="45" class="service-header" />
-  <text x="945" y="764" text-anchor="middle" class="label class-title">AuthService</text>
-  <line x1="820" y1="780" x2="1070" y2="780" class="divider" />
-  <text x="840" y="807" class="label member">+ login(input)</text>
-  <text x="840" y="830" class="label member">uses bcrypt password check</text>
-  <text x="840" y="853" class="label member">issues JWT access token</text>
+  <path d="M810 458 C840 498 858 538 890 575" class="assoc" />
+  <text x="820" y="477" class="text mult">0..1</text>
+  <text x="866" y="566" class="text mult">*</text>
 
-  <rect x="1110" y="735" width="205" height="160" class="box" />
-  <rect x="1110" y="735" width="205" height="45" class="repo-header" />
-  <text x="1213" y="764" text-anchor="middle" class="label class-title">Repositories</text>
-  <line x1="1110" y1="780" x2="1315" y2="780" class="divider" />
-  <text x="1130" y="800" class="label member">+ AdminRepository</text>
-  <text x="1130" y="821" class="label member">+ RequestRepository</text>
-  <text x="1130" y="842" class="label member">+ StateRepository</text>
-  <text x="1130" y="863" class="label member">+ SettingsRepository</text>
-  <text x="1130" y="884" class="label member">+ ActionLogRepository</text>
+  <path d="M350 285 C540 405 700 520 890 586" class="assoc" />
+  <text x="370" y="309" class="text mult">0..1</text>
+  <text x="866" y="577" class="text mult">*</text>
+  <text x="635" y="460" text-anchor="middle" class="text label">logged admin actor</text>
 
-  <path d="M300 735 C395 660 500 615 615 670" class="depends" />
-  <text x="350" y="684" class="label small">creates</text>
-  <path d="M605 735 L650 670" class="depends" />
-  <text x="617" y="711" class="label small">manages</text>
-  <path d="M945 735 C835 675 620 610 360 290" class="depends" />
-  <text x="810" y="688" class="label small">authenticates</text>
-  <path d="M1070 805 L1110 805" class="depends" />
-  <path d="M385 805 L440 805" class="depends" />
-  <path d="M770 805 L820 805" class="depends" />
+  <path d="M370 930 C450 785 500 640 560 510" class="dep" />
+  <text x="480" y="696" class="text label">creates</text>
 
-  <rect x="95" y="910" width="1160" height="35" class="note" />
-  <text x="675" y="933" text-anchor="middle" class="label small">The implementation uses TypeScript row types, repositories, and services instead of concrete ORM entity classes; this diagram expresses the equivalent domain class model.</text>
+  <path d="M370 952 C535 790 700 680 890 610" class="dep" />
+  <text x="612" y="776" class="text label">creates</text>
+
+  <path d="M640 893 C730 650 820 390 890 244" class="dep" />
+  <text x="770" y="565" class="text label">manages</text>
+
+  <path d="M770 940 C820 825 852 700 890 620" class="dep" />
+  <text x="836" y="780" class="text label">manages</text>
+
+  <path d="M1048 953 L1064 760" class="dep" />
+  <text x="1072" y="850" class="text label">authenticates</text>
+
+  <path d="M370 930 L430 930" class="assoc" />
+  <path d="M770 930 L890 930" class="assoc" />
+  <path d="M1205 930 L1330 930" class="assoc" />
+
+  <rect x="160" y="1150" width="1430" height="42" class="note" />
+  <text x="875" y="1177" text-anchor="middle" class="text label">The implementation uses TypeScript row types, repositories, and services instead of concrete ORM entity classes; this diagram expresses the equivalent domain class model.</text>
 </svg>
