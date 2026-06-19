@@ -119,13 +119,19 @@ Functional requirements describe what the system must do.
 | Admin Reviewer | Export data | Admin exports filtered requests as a CSV file. |
 | Admin Reviewer | Manage states | Admin adds, edits, recolors, reorders, or deletes states according to system rules. |
 
-### 2.4 Use Case Diagram
+### 2.4 Class Diagram
+
+The class diagram summarizes the main domain classes concluded from the project implementation and database schema. The backend uses TypeScript row types, repositories, and services rather than ORM entity classes, so the diagram represents the domain model and its service boundaries.
+
+![Event Registration System Class Diagram](event-registration-class-diagram.svg)
+
+### 2.5 Use Case Diagram
 
 The use case diagram shows the main interactions between the visitor, admin reviewer, and the system.
 
 ![Event Registration System Use Case Diagram](event-registration-use-case-diagram.svg)
 
-### 2.5 System Architecture
+### 2.6 System Architecture
 
 The backend is designed as a Node.js application using Express. PostgreSQL stores the data. The frontend can be a public registration page and an admin control panel that both communicate with the backend API.
 
@@ -141,13 +147,13 @@ Admin Browser
   -> PostgreSQL Database
 ```
 
-### 2.6 Database Design
+### 2.7 Database Design
 
 The database is designed around registration requests, request states, admin users, notes, action logs, and settings.
 
 ![Event Registration System Database Schema](event-registration-database-schema.svg)
 
-### 2.7 Database Tables
+### 2.8 Database Tables
 
 | Table | Purpose |
 | --- | --- |
@@ -158,9 +164,9 @@ The database is designed around registration requests, request states, admin use
 | `request_action_logs` | Stores audit records for system and admin actions. |
 | `app_settings` | Stores configurable values such as age limits and default state. |
 
-### 2.8 Table Schemas
+### 2.9 Table Schemas
 
-#### 2.8.1 `admin_users`
+#### 2.9.1 `admin_users`
 
 | Column | Type | Description |
 | --- | --- | --- |
@@ -172,7 +178,7 @@ The database is designed around registration requests, request states, admin use
 | `created_at` | `timestamptz` | Creation time. |
 | `updated_at` | `timestamptz` | Last update time. |
 
-#### 2.8.2 `request_states`
+#### 2.9.2 `request_states`
 
 | Column | Type | Description |
 | --- | --- | --- |
@@ -185,7 +191,7 @@ The database is designed around registration requests, request states, admin use
 | `created_at` | `timestamptz` | Creation time. |
 | `updated_at` | `timestamptz` | Last update time. |
 
-#### 2.8.3 `registration_requests`
+#### 2.9.3 `registration_requests`
 
 | Column | Type | Description |
 | --- | --- | --- |
@@ -204,7 +210,7 @@ The database is designed around registration requests, request states, admin use
 | `created_at` | `timestamptz` | Registration time. |
 | `updated_at` | `timestamptz` | Last update time. |
 
-#### 2.8.4 `request_notes`
+#### 2.9.4 `request_notes`
 
 | Column | Type | Description |
 | --- | --- | --- |
@@ -214,7 +220,7 @@ The database is designed around registration requests, request states, admin use
 | `body` | `text` | Internal note text. |
 | `created_at` | `timestamptz` | Note creation time. |
 
-#### 2.8.5 `request_action_logs`
+#### 2.9.5 `request_action_logs`
 
 | Column | Type | Description |
 | --- | --- | --- |
@@ -226,7 +232,7 @@ The database is designed around registration requests, request states, admin use
 | `metadata` | `jsonb` | Extra action details. |
 | `created_at` | `timestamptz` | Action time. |
 
-#### 2.8.6 `app_settings`
+#### 2.9.6 `app_settings`
 
 | Column | Type | Description |
 | --- | --- | --- |
@@ -234,7 +240,7 @@ The database is designed around registration requests, request states, admin use
 | `value` | `jsonb` | Setting value. |
 | `updated_at` | `timestamptz` | Last update time. |
 
-### 2.9 Relationships
+### 2.10 Relationships
 
 The schema mainly uses one-to-many relationships. The diagram shows these relationships using `1`, `*`, and `0..1` labels.
 

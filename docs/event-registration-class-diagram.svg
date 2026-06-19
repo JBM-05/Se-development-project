@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1350" height="950" viewBox="0 0 1350 950" role="img" aria-labelledby="title desc">
+  <title id="title">Event Registration System Class Diagram</title>
+  <desc id="desc">UML class diagram showing the main event registration domain classes, service classes, repository classes, and their relationships.</desc>
+  <defs>
+    <style>
+      .label { font-family: "Segoe UI", Arial, sans-serif; fill: #111827; }
+      .title { font-size: 30px; font-weight: 700; }
+      .class-title { font-size: 19px; font-weight: 700; fill: #ffffff; }
+      .stereo { font-size: 14px; fill: #e0f2fe; font-weight: 600; }
+      .member { font-size: 15px; }
+      .small { font-size: 14px; }
+      .card { font-size: 16px; font-weight: 700; fill: #7c2d12; }
+      .box { fill: #ffffff; stroke: #334155; stroke-width: 2.1; rx: 8; }
+      .entity-header { fill: #1f4f82; }
+      .service-header { fill: #0f766e; }
+      .repo-header { fill: #7c3aed; }
+      .value-header { fill: #9a3412; }
+      .divider { stroke: #cbd5e1; stroke-width: 1.4; }
+      .relation { stroke: #475569; stroke-width: 2.3; fill: none; marker-end: url(#arrow); }
+      .depends { stroke: #64748b; stroke-width: 2; fill: none; stroke-dasharray: 7 7; marker-end: url(#arrow); }
+      .note { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.8; rx: 8; }
+    </style>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L10,3 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <text x="675" y="42" text-anchor="middle" class="label title">Event Registration System - Class Diagram</text>
+
+  <!-- Entity classes -->
+  <rect x="45" y="95" width="315" height="235" class="box" />
+  <rect x="45" y="95" width="315" height="50" class="entity-header" />
+  <text x="203" y="116" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
+  <text x="203" y="138" text-anchor="middle" class="label class-title">AdminUser</text>
+  <line x1="45" y1="145" x2="360" y2="145" class="divider" />
+  <text x="65" y="174" class="label member">+ id: uuid</text>
+  <text x="65" y="197" class="label member">+ email: text</text>
+  <text x="65" y="220" class="label member">+ passwordHash: text</text>
+  <text x="65" y="243" class="label member">+ role: text</text>
+  <text x="65" y="266" class="label member">+ isActive: boolean</text>
+  <line x1="45" y1="286" x2="360" y2="286" class="divider" />
+  <text x="65" y="313" class="label member">+ canLogin(): boolean</text>
+
+  <rect x="455" y="75" width="440" height="300" class="box" />
+  <rect x="455" y="75" width="440" height="50" class="entity-header" />
+  <text x="675" y="96" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
+  <text x="675" y="118" text-anchor="middle" class="label class-title">RegistrationRequest</text>
+  <line x1="455" y1="125" x2="895" y2="125" class="divider" />
+  <text x="475" y="154" class="label member">+ id: uuid</text>
+  <text x="475" y="177" class="label member">+ requestNumber: text</text>
+  <text x="475" y="200" class="label member">+ fullName: text</text>
+  <text x="475" y="223" class="label member">+ age: integer</text>
+  <text x="475" y="246" class="label member">+ major: text</text>
+  <text x="475" y="269" class="label member">+ phone: text</text>
+  <text x="475" y="292" class="label member">+ normalizedPhone: text</text>
+  <text x="475" y="315" class="label member">+ email: text</text>
+  <text x="475" y="338" class="label member">+ normalizedEmail: text</text>
+  <text x="475" y="361" class="label member">+ city: text</text>
+
+  <rect x="1005" y="95" width="300" height="235" class="box" />
+  <rect x="1005" y="95" width="300" height="50" class="entity-header" />
+  <text x="1155" y="116" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
+  <text x="1155" y="138" text-anchor="middle" class="label class-title">RequestState</text>
+  <line x1="1005" y1="145" x2="1305" y2="145" class="divider" />
+  <text x="1025" y="174" class="label member">+ id: uuid</text>
+  <text x="1025" y="197" class="label member">+ name: text</text>
+  <text x="1025" y="220" class="label member">+ slug: text</text>
+  <text x="1025" y="243" class="label member">+ color: text</text>
+  <text x="1025" y="266" class="label member">+ sortOrder: integer</text>
+  <text x="1025" y="289" class="label member">+ isSystem: boolean</text>
+  <line x1="1005" y1="304" x2="1305" y2="304" class="divider" />
+  <text x="1025" y="319" class="label member">+ canBeDeleted(): boolean</text>
+
+  <rect x="90" y="455" width="310" height="190" class="box" />
+  <rect x="90" y="455" width="310" height="50" class="entity-header" />
+  <text x="245" y="476" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
+  <text x="245" y="498" text-anchor="middle" class="label class-title">RequestNote</text>
+  <line x1="90" y1="505" x2="400" y2="505" class="divider" />
+  <text x="110" y="534" class="label member">+ id: uuid</text>
+  <text x="110" y="557" class="label member">+ requestId: uuid</text>
+  <text x="110" y="580" class="label member">+ adminId: uuid</text>
+  <text x="110" y="603" class="label member">+ body: text</text>
+  <text x="110" y="626" class="label member">+ createdAt: timestamptz</text>
+
+  <rect x="520" y="455" width="340" height="215" class="box" />
+  <rect x="520" y="455" width="340" height="50" class="entity-header" />
+  <text x="690" y="476" text-anchor="middle" class="label stereo">&lt;&lt;entity&gt;&gt;</text>
+  <text x="690" y="498" text-anchor="middle" class="label class-title">RequestActionLog</text>
+  <line x1="520" y1="505" x2="860" y2="505" class="divider" />
+  <text x="540" y="534" class="label member">+ id: uuid</text>
+  <text x="540" y="557" class="label member">+ requestId: uuid?</text>
+  <text x="540" y="580" class="label member">+ actorAdminId: uuid?</text>
+  <text x="540" y="603" class="label member">+ actorType: system | visitor | admin</text>
+  <text x="540" y="626" class="label member">+ action: text</text>
+  <text x="540" y="649" class="label member">+ metadata: json</text>
+
+  <rect x="1000" y="455" width="285" height="155" class="box" />
+  <rect x="1000" y="455" width="285" height="50" class="value-header" />
+  <text x="1143" y="476" text-anchor="middle" class="label stereo">&lt;&lt;value object&gt;&gt;</text>
+  <text x="1143" y="498" text-anchor="middle" class="label class-title">AppSetting</text>
+  <line x1="1000" y1="505" x2="1285" y2="505" class="divider" />
+  <text x="1020" y="534" class="label member">+ key: text</text>
+  <text x="1020" y="557" class="label member">+ value: json</text>
+  <text x="1020" y="580" class="label member">+ updatedAt: timestamptz</text>
+
+  <!-- Domain relationships -->
+  <path d="M895 215 L1005 215" class="relation" />
+  <text x="910" y="203" class="label card">*</text>
+  <text x="980" y="203" class="label card">1</text>
+  <text x="930" y="243" class="label small">current state</text>
+
+  <path d="M400 530 C450 450 515 390 575 375" class="relation" />
+  <text x="405" y="522" class="label card">*</text>
+  <text x="570" y="398" class="label card">1</text>
+
+  <path d="M245 455 C215 395 205 360 205 330" class="relation" />
+  <text x="256" y="446" class="label card">*</text>
+  <text x="215" y="354" class="label card">1</text>
+
+  <path d="M685 455 L680 375" class="relation" />
+  <text x="696" y="440" class="label card">*</text>
+  <text x="695" y="397" class="label card">0..1</text>
+
+  <path d="M860 560 C935 510 975 390 1040 330" class="relation" />
+  <text x="866" y="550" class="label card">*</text>
+  <text x="1008" y="350" class="label card">0..1</text>
+
+  <!-- Service and repository classes -->
+  <rect x="55" y="735" width="330" height="135" class="box" />
+  <rect x="55" y="735" width="330" height="45" class="service-header" />
+  <text x="220" y="764" text-anchor="middle" class="label class-title">RegistrationService</text>
+  <line x1="55" y1="780" x2="385" y2="780" class="divider" />
+  <text x="75" y="807" class="label member">+ createRegistration(input)</text>
+  <text x="75" y="830" class="label member">- validateAge()</text>
+  <text x="75" y="853" class="label member">- normalizeContactData()</text>
+
+  <rect x="440" y="735" width="330" height="135" class="box" />
+  <rect x="440" y="735" width="330" height="45" class="service-header" />
+  <text x="605" y="764" text-anchor="middle" class="label class-title">RequestService</text>
+  <line x1="440" y1="780" x2="770" y2="780" class="divider" />
+  <text x="460" y="807" class="label member">+ getRequests(filters)</text>
+  <text x="460" y="830" class="label member">+ updateRequestState()</text>
+  <text x="460" y="853" class="label member">+ createNote() / archiveRequest()</text>
+
+  <rect x="820" y="735" width="250" height="135" class="box" />
+  <rect x="820" y="735" width="250" height="45" class="service-header" />
+  <text x="945" y="764" text-anchor="middle" class="label class-title">AuthService</text>
+  <line x1="820" y1="780" x2="1070" y2="780" class="divider" />
+  <text x="840" y="807" class="label member">+ login(input)</text>
+  <text x="840" y="830" class="label member">- verifyPassword()</text>
+  <text x="840" y="853" class="label member">- issueToken()</text>
+
+  <rect x="1110" y="735" width="205" height="135" class="box" />
+  <rect x="1110" y="735" width="205" height="45" class="repo-header" />
+  <text x="1213" y="764" text-anchor="middle" class="label class-title">Repositories</text>
+  <line x1="1110" y1="780" x2="1315" y2="780" class="divider" />
+  <text x="1130" y="807" class="label member">+ AdminRepository</text>
+  <text x="1130" y="830" class="label member">+ RequestRepository</text>
+  <text x="1130" y="853" class="label member">+ StateRepository</text>
+
+  <path d="M300 735 C395 660 500 615 615 670" class="depends" />
+  <text x="350" y="684" class="label small">creates</text>
+  <path d="M605 735 L650 670" class="depends" />
+  <text x="617" y="711" class="label small">manages</text>
+  <path d="M945 735 C835 675 620 610 360 290" class="depends" />
+  <text x="810" y="688" class="label small">authenticates</text>
+  <path d="M1070 805 L1110 805" class="depends" />
+  <path d="M385 805 L440 805" class="depends" />
+  <path d="M770 805 L820 805" class="depends" />
+
+  <rect x="95" y="900" width="1160" height="35" class="note" />
+  <text x="675" y="923" text-anchor="middle" class="label small">The implementation uses TypeScript row types, repositories, and services instead of concrete ORM entity classes; this diagram expresses the equivalent domain class model.</text>
+</svg>
