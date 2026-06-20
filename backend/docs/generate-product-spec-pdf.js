@@ -11,7 +11,7 @@ const browserCandidates = [
   "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
   "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
 ];
-const userDataDir = resolve(docsDir, ".pdf-browser-profile");
+const userDataDir = resolve(docsDir, `.pdf-browser-profile-${process.pid}`);
 
 function escapeHtml(value) {
   return value
@@ -25,11 +25,26 @@ function inlineCode(value) {
   return value.replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
+function inlineLinks(value) {
+  return value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+}
+
 function parseInline(value) {
   let parsed = escapeHtml(value);
   parsed = parsed.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   parsed = inlineCode(parsed);
+  parsed = inlineLinks(parsed);
   return parsed;
+}
+
+function slugifyHeading(value) {
+  return value
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\./g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function renderTable(lines) {
@@ -62,6 +77,7 @@ function renderMarkdown(markdown) {
   const html = [];
   let paragraph = [];
   let list = [];
+  let listTag = "ul";
   let table = [];
   let inCode = false;
   let code = [];
@@ -74,8 +90,9 @@ function renderMarkdown(markdown) {
 
   function flushList() {
     if (list.length === 0) return;
-    html.push("<ul>", ...list.map((item) => `<li>${parseInline(item)}</li>`), "</ul>");
+    html.push(`<${listTag}>`, ...list.map((item) => `<li>${parseInline(item)}</li>`), `</${listTag}>`);
     list = [];
+    listTag = "ul";
   }
 
   function flushTable() {
@@ -131,14 +148,30 @@ function renderMarkdown(markdown) {
       flushParagraph();
       flushList();
       const level = headingMatch[1].length;
-      html.push(`<h${level}>${parseInline(headingMatch[2])}</h${level}>`);
+      const heading = headingMatch[2];
+      html.push(`<h${level} id="${slugifyHeading(heading)}">${parseInline(heading)}</h${level}>`);
       continue;
     }
 
     const listMatch = line.match(/^- (.+)$/);
     if (listMatch) {
       flushParagraph();
+      if (list.length > 0 && listTag !== "ul") {
+        flushList();
+      }
+      listTag = "ul";
       list.push(listMatch[1]);
+      continue;
+    }
+
+    const orderedListMatch = line.match(/^\d+\.\s+(.+)$/);
+    if (orderedListMatch) {
+      flushParagraph();
+      if (list.length > 0 && listTag !== "ol") {
+        flushList();
+      }
+      listTag = "ol";
+      list.push(orderedListMatch[1]);
       continue;
     }
 
@@ -207,7 +240,6 @@ try {
   mkdirSync(userDataDir, { recursive: true });
   execFileSync(browserPath, [
     "--headless",
-    "--disable-software-rasterizer",
     "--disable-gpu",
     "--disable-gpu-compositing",
     "--disable-dev-shm-usage",

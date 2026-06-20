@@ -14,7 +14,7 @@ Jamaleddin Burhaneddin Zahri Muntasser - 6170
 
 1. [Chapter 1: Introduction And System Overview](#chapter-1-introduction-and-system-overview)
 2. [Chapter 2: System Analysis And Design](#chapter-2-system-analysis-and-design)
-3. [Chapter 3: Implementation Using Node.js With Express](#chapter-3-implementation-using-nodejs-with-express)
+3. [Chapter 3: Implementation Using Node.js, Express, And React](#chapter-3-implementation-using-nodejs-express-and-react)
 4. [Chapter 4: Testing And Results](#chapter-4-testing-and-results)
 5. [Chapter 5: Evaluation And Future Improvements](#chapter-5-evaluation-and-future-improvements)
 
@@ -255,37 +255,51 @@ The schema mainly uses one-to-many relationships. The diagram shows these relati
 
 The `normalized_phone` and `normalized_email` columns remain unique because this project blocks duplicate registrations permanently, even if an older request is archived.
 
-## Chapter 3: Implementation Using Node.js With Express
+## Chapter 3: Implementation Using Node.js, Express, And React
 
 ### 3.1 Implementation Overview
 
-The backend is planned as a Node.js application using Express. Express is responsible for routing HTTP requests to controllers. PostgreSQL is used as the database. The `pg` package is used for database connections and queries. Migrations are managed using `node-pg-migrate`.
+The system is implemented as a full-stack web application. The backend uses Node.js with Express to expose the public registration API and protected admin API. PostgreSQL stores registration requests, request states, admin users, notes, action logs, and application settings. The `pg` package is used for database connections and queries. Migrations are managed using `node-pg-migrate`.
+
+The frontend is implemented as a React and TypeScript application built with Vite. It contains the public registration workflow, the admin login screen, and the protected admin control panel. The frontend communicates with the backend through the `/api` routes, keeps authentication state in Redux Toolkit, supports English and Arabic through i18next, and uses Tailwind CSS for the interface.
 
 The project follows an MVC-style structure:
 
 - **Model**: database tables, validation schemas, repositories, and domain services.
 - **Controller**: Express handlers that receive requests, call services, and return responses.
-- **View**: API responses consumed by a public registration page and admin control panel. Since this project phase is backend-focused, the view layer is represented by JSON responses and CSV output.
+- **View**: React pages and components that consume JSON API responses and CSV output.
 
-### 3.2 Suggested Project Structure
+The implementation keeps business rules on the backend. The frontend performs client-side validation and improves the user experience, but the backend remains the final authority for validation, duplicate prevention, authentication, and state transitions.
+
+### 3.2 Project Structure
 
 ```text
-src/
-  app.ts
-  server.ts
-  config/
-  db/
-  routes/
-  controllers/
-  services/
-  repositories/
-  validators/
-  middleware/
-  utils/
-migrations/
-tests/
-docs/
+backend/
+  src/
+    app.ts
+    server.ts
+    config/
+    db/
+    routes/
+    controllers/
+    services/
+    repositories/
+    validators/
+    middleware/
+    utils/
+  migrations/
+  tests/
+  docs/
+frontend/
+  src/
+    app/
+    features/
+    pages/
+    shared/
+  public/
 ```
+
+The backend is separated by technical responsibility: routes, controllers, services, repositories, validators, middleware, and utilities. The frontend is separated by application responsibility: app setup, feature modules, route pages, shared API helpers, reusable components, i18n files, and shared types.
 
 ### 3.3 Model Layer
 
@@ -481,6 +495,184 @@ When a visitor submits a registration:
 8. The controller returns the request number.
 
 This flow keeps the implementation organized and makes it easier to test each part separately.
+
+### 3.11 Frontend Implementation Overview
+
+The frontend is located in the `frontend/` directory. It is a React application written in TypeScript and built with Vite. The implementation is organized around route pages, feature modules, shared components, shared API helpers, and shared types.
+
+Important frontend packages include:
+
+| Package | Purpose |
+| --- | --- |
+| `react` and `react-dom` | Build the user interface. |
+| `react-router-dom` | Define public and admin routes. |
+| `@reduxjs/toolkit` and `react-redux` | Store authentication and layout state. |
+| `i18next` and `react-i18next` | Provide English and Arabic translations. |
+| `tailwindcss` | Style the public and admin interfaces. |
+| `lucide-react` | Render consistent interface icons. |
+| `gsap` | Add restrained page and form transitions. |
+
+The frontend does not duplicate backend business rules. It validates form fields early for a better user experience, but the backend still performs authoritative validation, duplicate checks, authentication, and database updates.
+
+### 3.12 Frontend Routing
+
+The frontend routes are defined in `frontend/src/app/App.tsx`.
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Public registration page. |
+| `/register` | Public registration page. |
+| `/register/success` | Registration success page showing the returned request number. |
+| `/admin/login` | Admin login page. |
+| `/admin` | Protected admin dashboard. |
+| `/admin/requests` | Protected request list with filters, pagination, sorting, and export. |
+| `/admin/requests/:id` | Protected request detail page. |
+| `/admin/states` | Protected state management page. |
+| `/admin/settings` | Redirects to state management because backend settings endpoints are not implemented. |
+
+Admin routes are wrapped in `ProtectedRoute`. If there is no authenticated admin token, the user is redirected to the login page.
+
+### 3.13 Frontend API Layer
+
+The frontend uses a shared API helper in `frontend/src/shared/api/baseApi.ts`. This helper centralizes HTTP requests, JSON serialization, error handling, and authorization headers.
+
+```ts
+export async function apiRequest<T>(path: string, options: ApiRequestOptions = {}): Promise<T> {
+  const headers = new Headers(options.headers);
+  const token = store.getState().auth.token;
+
+  if (token) {
+    headers.set("authorization", `Bearer ${token}`);
+  }
+
+  const response = await fetch(`${apiBaseUrl}${path}`, {
+    ...options,
+    headers
+  });
+
+  return response.json() as Promise<T>;
+}
+```
+
+Feature API files use this helper:
+
+| File | Responsibility |
+| --- | --- |
+| `features/auth/authApi.ts` | Login and current admin profile. |
+| `features/registration/registrationApi.ts` | Public registration submission. |
+| `features/requests/requestsApi.ts` | Request listing, detail, state changes, notes, archive, and CSV export. |
+| `features/states/statesApi.ts` | Request state listing, creation, update, and deletion. |
+| `features/stats/statsApi.ts` | Dashboard statistics. |
+
+This keeps HTTP details out of pages and allows pages to work with typed functions instead of repeating `fetch` logic.
+
+### 3.14 Public Registration Frontend
+
+The public registration page is implemented in `frontend/src/pages/public/RegistrationPage.tsx`. It contains a visitor form for full name, age, major, phone, email, and city.
+
+The page performs client-side checks before submission:
+
+- Full name must contain at least three words.
+- Age must be between 18 and 100.
+- Major and city are required.
+- Phone must match a basic phone pattern.
+- Email must match a basic email pattern.
+
+After successful submission, the page navigates to `/register/success` and passes the backend response so the visitor can see the request number. If the backend returns validation errors or duplicate conflicts, the page maps those errors to field messages or a visible form-level message.
+
+### 3.15 Admin Authentication Frontend
+
+The login screen is implemented in `frontend/src/pages/admin/LoginPage.tsx`. It sends the admin email and password to `/api/auth/login`. On success, the frontend stores the access token and admin profile in the authentication slice.
+
+The authentication slice is implemented in `frontend/src/features/auth/authSlice.ts`. It owns:
+
+- The access token.
+- The current admin profile.
+- Login success state.
+- Logout behavior.
+
+The shared API helper reads the token from the Redux store and adds `Authorization: Bearer <token>` to protected admin requests. When a protected request returns `401`, the helper dispatches logout so the frontend does not continue using an expired or invalid token.
+
+### 3.16 Admin Dashboard Frontend
+
+The dashboard page is implemented in `frontend/src/pages/admin/DashboardPage.tsx`. It reads `/api/admin/stats` and displays:
+
+- Total requests.
+- Approved requests.
+- Under review requests.
+- No reply requests.
+- Distribution by state.
+- Distribution by major.
+- Distribution by city.
+
+The dashboard uses simple accessible bar lists instead of a heavy charting library. This keeps the first version maintainable while still giving admins a quick operational overview.
+
+### 3.17 Request Management Frontend
+
+The request list page is implemented in `frontend/src/pages/admin/RequestsPage.tsx`. It supports:
+
+- Searching by text.
+- Filtering by state, major, city, archive status, and date range.
+- Sorting by backend-supported fields.
+- Pagination and page size selection.
+- CSV export using the current filter values.
+- Opening a request detail page.
+
+Request filters are stored in URL query parameters. This makes the list refresh-safe and allows admins to share a filtered view.
+
+The request detail page is implemented in `frontend/src/pages/admin/RequestDetailPage.tsx`. It supports:
+
+- Viewing applicant and contact information.
+- Calling phone and email links through `tel:` and `mailto:`.
+- Viewing the current state badge.
+- Changing the request state.
+- Adding internal notes.
+- Archiving or unarchiving a request.
+- Reading the audit log timeline.
+
+### 3.18 Request State Management Frontend
+
+The state management page is implemented in `frontend/src/pages/admin/StatesPage.tsx`. It allows admins to:
+
+- View request states ordered by sort order.
+- Create new states with name, slug, color, and sort order.
+- Edit non-system state names, colors, and sort order.
+- Delete non-system states.
+- Select a transfer target when deleting a state that may have linked requests.
+
+System states are shown as locked so admins understand why they cannot be edited or deleted from the interface.
+
+### 3.19 Localization And Layout Direction
+
+The frontend supports English and Arabic through i18next. Translation files are stored in:
+
+```text
+frontend/src/shared/i18n/locales/en/common.json
+frontend/src/shared/i18n/locales/ar/common.json
+```
+
+The `useDocumentLanguage` hook updates the document language and direction. English uses left-to-right layout. Arabic uses right-to-left layout. Components use logical Tailwind classes such as `start`, `end`, `ps`, `pe`, and `text-start` so the same component structure works in both languages.
+
+### 3.20 Frontend Implementation Flow
+
+When a visitor submits the registration form:
+
+1. React collects form state from controlled inputs.
+2. The page validates required fields and basic formats.
+3. The registration API helper sends `POST /api/registrations`.
+4. The backend validates, normalizes, checks duplicates, and saves the request.
+5. The frontend receives the request number.
+6. React Router navigates to the success page.
+
+When an admin reviews a request:
+
+1. The admin logs in and receives an access token.
+2. The token is stored in the authentication slice.
+3. Protected pages call admin API helpers.
+4. The shared API helper attaches the bearer token.
+5. The admin opens a request detail page.
+6. The admin changes state, adds a note, or archives the request.
+7. The page refetches the request detail so the interface shows the latest backend state.
 
 ## Chapter 4: Testing And Results
 
